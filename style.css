@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600,700');
+*{
+	box-sizing: border-box;
+}
+body{
+	font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	padding: 0;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#002b6c+0,062242+100 */
+	background: #002b6c; /* Old browsers */
+	background: -moz-linear-gradient(top, #002b6c 0%, #062242 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #002b6c 0%,#062242 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #002b6c 0%,#062242 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	background-image: url("images/backgroundPattern.png");
+    background-repeat: repeat;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002b6c', endColorstr='#062242',GradientType=0 ); /* IE6-9 */
+}
+h1 {
+	color: #4286f4 !important;
+}
+.hastag{
+	bottom: 15px;
+	right: 15px;
+	color:#fff;
+	font-size: 16px;
+	line-height: 1;
+	margin-top: 20px;
+	text-align: center;
+}
+.content{
+	display: block;
+	min-height: 100vh;
+	width: 100%;
+	padding: 3% 15px;
+	background-position: center;
+	-webkit-background-size: contain;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url('../img/logoOp.png');
+}
+.head{
+	text-align: center;
+	position: relative;
+	width: 100%;
+	margin-bottom: 30px;
+	display: inline-block;
+}
+.head:after{
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -65px;
+	width: 130px;
+	height: 1px;
+	background-color: #979797;
+}
+.head h1{
+	font-family: 'Montserrat', sans-serif;
+	text-align: center;
+	color:#fff;
+	line-height: 1.25;
+}
+.body{
+	text-align: center;
+}
+.head h1 small{
+	display: block;
+	font-size: 40%;
+}
+.upload{
+	color: #3b5998;
+	text-decoration: none;
+	font-size: 16px;
+	background-color: #fff;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.17);
+	border-radius: 22px;
+	background-color: #3b5998;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+	padding: 8px 30px;
+	background-color: #fff;	
+	cursor: pointer;
+}
+.upload img{
+	width: 27px;
+	margin-right: 12px;
+}
+.upload input{
+	display: none;
+}
+.btn-facebook{
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 14px;
+	background-color: #fff;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.17);
+	border-radius: 22px;
+	background-color: #3b5998;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+	padding: 8px 30px;
+	background-color: #3b5998;
+}
+.btn-facebook img{
+	width: 35px;
+	margin-right: 20px;
+}
+.thumb{
+	width: 100%;
+	max-width: 520px;
+	height: 100%;
+	max-height: 520px;
+	border:4px solid #fff;
+	margin: 0 auto;
+}
+.thumb img{
+	max-width: 100%;
+	margin: 0 auto;
+	display: block;
+}
+.buttons{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: 30px;
+	/*padding-top: 80px;*/
+}
+.buttons .btn{
+	text-decoration: none;
+	color:#fff;
+	height: 43px;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	padding: 10px 30px;
+	justify-content: center;
+	border-radius: 22px;
+	border:1px solid #fff;
+	margin: 10px;
+}
+.buttons .btn.blue{
+	border-color: #3b5998;
+	background-color: #3b5998;
+}
+.buttons .btn img{ 
+	height: 18px;
+	margin-right: 10px;
+}
+
+@media (min-width: 992px) {
+	.head h1{
+		font-size: 66px;
+		margin: 30px 0;
+	}
+	.btn-facebook, .upload{
+		height: 48px;
+	}
+	.hastag{
+		position: fixed;
+	}
+
+}
+@media (max-width: 991px) {
+	.head h1{
+		font-size: 30px;
+		margin: 15px 0;
+	}
+	.btn-facebook img, .upload img{
+		width: 20px;
+		margin-right: 10px;
+	}
+	.btn-facebook, .upload{
+		height: 36px;
+		font-size: 11px;
+	}
+	.btn-facebook{
+		padding: 8px 15px;
+	}
+}
