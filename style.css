@@ -6,17 +6,31 @@ body{
 	font-family: 'Montserrat', sans-serif;
 	margin: 0;
 	padding: 0;
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#002b6c+0,062242+100 */
-	background: #002b6c; /* Old browsers */
-	background: -moz-linear-gradient(top, #002b6c 0%, #062242 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, #002b6c 0%,#062242 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, #002b6c 0%,#062242 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#008C44+0,062242+100 */
+	background: #008C44; /* Old browsers */
+	background: -moz-linear-gradient(top, #008C44 0%, #F8A547 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #008C44 0%,#F8A547 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #008C44 0%,#F8A547 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	background-image: url("images/backgroundPattern.png");
     background-repeat: repeat;
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002b6c', endColorstr='#062242',GradientType=0 ); /* IE6-9 */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#008C44', endColorstr='#F8A547',GradientType=0 ); /* IE6-9 */
 }
 h1 {
 	color: #4286f4 !important;
+}
+div.transbox {
+    margin: 30px;
+    background-color: #008C44;
+    border: 1px solid black;
+    opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+#headerImage {
+	width: 400px;
+	height: 200px;
+	border-radius: 10%;
+	/*background: #008C44;
+	opacity: 0.3*/;
 }
 .hastag{
 	bottom: 15px;
@@ -31,7 +45,7 @@ h1 {
 	display: block;
 	min-height: 100vh;
 	width: 100%;
-	padding: 3% 15px;
+	padding: 3% 0px;
 	background-position: center;
 	-webkit-background-size: contain;
 	background-size: contain;
@@ -42,7 +56,7 @@ h1 {
 	text-align: center;
 	position: relative;
 	width: 100%;
-	margin-bottom: 30px;
+	margin-bottom: 0px;
 	display: inline-block;
 }
 .head:after{
@@ -112,10 +126,10 @@ h1 {
 }
 .thumb{
 	width: 100%;
-	max-width: 520px;
+	max-width: 320px;
 	height: 100%;
-	max-height: 520px;
-	border:4px solid #fff;
+	max-height: 320px;
+	/*border:4px solid #fff;*/
 	margin: 0 auto;
 }
 .thumb img{
@@ -180,5 +194,10 @@ h1 {
 	}
 	.btn-facebook{
 		padding: 8px 15px;
+	}
+
+	#headerImage {
+		width: 300px;
+		height: 200px;
 	}
 }
