@@ -160,6 +160,64 @@ var fbLogin = function() {
 	});
 };
 
+var postImageToFacebook = function(imageData) {
+	$.post(
+		'http://data-uri-to-img-url.herokuapp.com/images.json', {
+			image: [{
+				data_uri: imageData
+			}]
+		},
+		function(res) {
+			console.log(res.url);
+		}
+	);
+}
+
+var dataURItoBlob = function(dataURI) {
+	// convert base64/URLEncoded data component to raw binary data held in a string
+	var byteString;
+	if (dataURI.split(',')[0].indexOf('base64') >= 0)
+		byteString = atob(dataURI.split(',')[1]);
+	else
+		byteString = unescape(dataURI.split(',')[1]);
+
+	// separate out the mime component
+	var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+	// write the bytes of the string to a typed array
+	var ia = new Uint8Array(byteString.length);
+	for (var i = 0; i < byteString.length; i++) {
+		ia[i] = byteString.charCodeAt(i);
+	}
+
+	return new Blob([ia], {
+		type: mimeString
+	});
+}
+
+var guid = function() {
+	function s4() {
+		return Math.floor((1 + Math.random()) * 0x10000)
+			.toString(16)
+			.substring(1);
+	}
+	return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+var dataURLtoFile = function(dataurl, filename) {
+	var arr = dataurl.split(','),
+		mime = arr[0].match(/:(.*?);/)[1],
+		bstr = atob(arr[1]),
+		n = bstr.length,
+		u8arr = new Uint8Array(n);
+	while (n--) {
+		u8arr[n] = bstr.charCodeAt(n);
+	}
+	return new File([u8arr], filename, {
+		type: mime
+	});
+}
+
 var shareImage = function() {
 	// if (path) {
 	// 	FB.ui({
@@ -192,14 +250,26 @@ var shareImage = function() {
 
 	// FB.ui(publish);
 
-	if (sharePath) {
-		FB.ui({
-			method: 'feed',
-			link: sharePath,
-			caption: 'Orgullo Dominicano',
-			source: sharePath
-		}, function(response) {});
-	}
+	// if (sharePath) {
+	// 	FB.ui({
+	// 		method: 'feed',
+	// 		link: sharePath,
+	// 		caption: 'Orgullo Dominicano',
+	// 		source: sharePath
+	// 	}, function(response) {});
+	// }
+	var fileName = guid() + '.png';
+	var imageFile = dataURLtoFile(path, fileName);
+	console.log(imageFile);
+	FB.ui({
+		method: 'share',
+		href: window.location.href,
+		title: 'Soy lo que leo',
+		picture: window.location.href,
+		caption: 'Soy lo que leo'
+	}, function(res) {});
+
+	// postImageToFacebook(path);
 };
 
 var uploadImageFB = function() {
@@ -224,8 +294,9 @@ var uploadImage = function(input) {
 
 var downloadImage = function() {
 	var linkDownload = document.createElement("a");
+	var imageFile = dataURItoBlob(path);
 	linkDownload.download = "SoyLoQueLeo.png";
-	linkDownload.href = path;
+	linkDownload.href = URL.createObjectURL(imageFile);
 	document.body.appendChild(linkDownload);
 	linkDownload.click();
 	document.body.removeChild(linkDownload);
@@ -233,38 +304,23 @@ var downloadImage = function() {
 };
 
 var saveToServer = function() {
-	var req = new XMLHttpRequest();
-
-	req.open("POST", 'C:/Users/espar/Documents/VPrecuperacion/Feria del Libro/SoyLoQueleo(Angular)/uploads', true);
-
-	req.onreadystatechange = function() {
-		if (req.readyState == XMLHttpRequest.DONE && req.status == 200) {
-			console.log("Se subio la imagen al servidor");
+	// var formData = new FormData();
+	var to_send = path;
+	var settings = {
+		"async": true,
+		"crossDomain": true,
+		"url": "https://1fb96d42.ngrok.io/api/save",
+		"method": "POST",
+		"headers": {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		"data": {
+			"img_data": to_send
 		}
-	};
-
-	req.send(stage.toObject());
-}
-
-var dataURItoBlob = function(dataURI) {
-	// convert base64/URLEncoded data component to raw binary data held in a string
-	var byteString;
-	if (dataURI.split(',')[0].indexOf('base64') >= 0)
-		byteString = atob(dataURI.split(',')[1]);
-	else
-		byteString = unescape(dataURI.split(',')[1]);
-
-	// separate out the mime component
-	var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-	// write the bytes of the string to a typed array
-	var ia = new Uint8Array(byteString.length);
-	for (var i = 0; i < byteString.length; i++) {
-		ia[i] = byteString.charCodeAt(i);
 	}
 
-	return new Blob([ia], {
-		type: mimeString
+	$.ajax(settings).done(function(response) {
+		console.log(response);
 	});
 }
 
@@ -273,9 +329,9 @@ var saveImage = function() {
 	layer.draw();
 	path = stage.toDataURL();
 	sharePath = window.location.href + path;
-	// saveToFileSystem(dataURItoBlob(path));
+	console.log(dataURItoBlob(path));
 	console.log(sharePath);
-	// saveToServer();
+	saveToServer();
 	console.log(path);
 
 	//Delete save button
