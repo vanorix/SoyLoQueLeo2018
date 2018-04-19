@@ -1,6 +1,6 @@
 var imageURL, imgObj, stage, image, frameObj, frame, path, sharePath;
 
-var frames = ['images/marcos/transparente.png','images/marcos/ciencia-ficcion(final).png',
+var frames = ['images/marcos/transparente.png', 'images/marcos/ciencia-ficcion(final).png',
 	'images/marcos/cuento(final).png',
 	'images/marcos/historico(final).png',
 	'images/marcos/poesia(final).png',
@@ -29,6 +29,7 @@ var generateHeader = function() {
 var generateSelection = function() {
 	var dropdown = document.createElement("div");
 	dropdown.setAttribute("class", "dropdown");
+	dropdown.setAttribute("id", "dropdown");
 
 	var toggle = document.createElement("button");
 	toggle.setAttribute("class", "btn btn-secondary dropdown-toggle");
@@ -111,19 +112,21 @@ var generateHome = function() {
 	var breakEl = document.createElement("br");
 	var breakEl1 = document.createElement("br");
 
-	var buttonUpload = document.createElement("a");
+	var label = document.createElement("label");
+	label.setAttribute("class", "upload");
+	label.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> &nbsp;Subir desde tu dispositivo";
+	var buttonUpload = document.createElement("input");
 	buttonUpload.setAttribute("id", "buttonUpload");
-	buttonUpload.setAttribute("class", "btn btn-primary");
-	buttonUpload.setAttribute("href", "javascript:;");
-	buttonUpload.setAttribute("onclick", "uploadImage()");
-	buttonUpload.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> &nbsp;Subir desde tu ordenador";
+	buttonUpload.setAttribute("type", "file");
+	// buttonUpload.setAttribute("class", "btn btn-primary");
+	buttonUpload.setAttribute("onchange", "uploadImage(this)");
 
-	
-	
+	label.appendChild(buttonUpload);
+
 	panel.appendChild(buttonFacebook);
 	panel.appendChild(breakEl);
 	panel.appendChild(breakEl1);
-	panel.appendChild(buttonUpload);
+	panel.appendChild(label);
 
 	body.appendChild(panel);
 	return body;
@@ -166,27 +169,37 @@ var shareImage = function() {
 	// 		source: path
 	// 	}, function(response) {});
 	// }
-	var publish = {
-		method: 'share',
-		message: 'Soy lo que leo',
-		attachment: {
-			name: 'Connect',
-			caption: 'Soy lo que leo',
-			href: window.location.href,
-			media: [{
-				type: 'image/png',
-				href: window.location.href,
-				src: path
-			}],
-		},
-		action_links: [{
-			text: 'Soy lo que leo',
-			href: window.location.href
-		}],
-		user_prompt_message: 'Comparte tu imagen!'
-	};
+	// var publish = {
+	// 	method: 'feed',
+	// 	message: 'Soy lo que leo',
+	// 	href: window.location.href,
+	// 	attachment: {
+	// 		name: 'Connect',
+	// 		caption: 'Soy lo que leo',
+	// 		href: window.location.href,
+	// 		media: [{
+	// 			type: 'image',
+	// 			href: window.location.href,
+	// 			src: path
+	// 		}],
+	// 	},
+	// 	action_links: [{
+	// 		text: 'Soy lo que leo',
+	// 		href: window.location.href
+	// 	}],
+	// 	user_prompt_message: 'Comparte tu imagen!'
+	// };
 
-	FB.ui(publish);
+	// FB.ui(publish);
+
+	if (sharePath) {
+		FB.ui({
+			method: 'feed',
+			link: sharePath,
+			caption: 'Orgullo Dominicano',
+			source: sharePath
+		}, function(response) {});
+	}
 };
 
 var uploadImageFB = function() {
@@ -196,8 +209,17 @@ var uploadImageFB = function() {
 	fbLogin();
 };
 
-var uploadImage = function() {
-	console.log("Button upload");
+var uploadImage = function(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			imageURL = e.target.result;
+			initCanvas();
+		}
+		reader.readAsDataURL(input.files[0]);
+	} else {
+		// path = 
+	}
 };
 
 var downloadImage = function() {
@@ -207,15 +229,16 @@ var downloadImage = function() {
 	document.body.appendChild(linkDownload);
 	linkDownload.click();
 	document.body.removeChild(linkDownload);
+	delete linkDownload;
 };
 
-var saveToServer = function(){
+var saveToServer = function() {
 	var req = new XMLHttpRequest();
 
 	req.open("POST", 'C:/Users/espar/Documents/VPrecuperacion/Feria del Libro/SoyLoQueleo(Angular)/uploads', true);
 
-	req.onreadystatechange = function(){
-		if(req.readyState == XMLHttpRequest.DONE && req.status == 200){
+	req.onreadystatechange = function() {
+		if (req.readyState == XMLHttpRequest.DONE && req.status == 200) {
 			console.log("Se subio la imagen al servidor");
 		}
 	};
@@ -223,11 +246,36 @@ var saveToServer = function(){
 	req.send(stage.toObject());
 }
 
+var dataURItoBlob = function(dataURI) {
+	// convert base64/URLEncoded data component to raw binary data held in a string
+	var byteString;
+	if (dataURI.split(',')[0].indexOf('base64') >= 0)
+		byteString = atob(dataURI.split(',')[1]);
+	else
+		byteString = unescape(dataURI.split(',')[1]);
+
+	// separate out the mime component
+	var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+	// write the bytes of the string to a typed array
+	var ia = new Uint8Array(byteString.length);
+	for (var i = 0; i < byteString.length; i++) {
+		ia[i] = byteString.charCodeAt(i);
+	}
+
+	return new Blob([ia], {
+		type: mimeString
+	});
+}
+
 var saveImage = function() {
 	stage.find('Transformer').destroy();
 	layer.draw();
-	path = stage.toDataURL("image/png");
-	saveToServer();
+	path = stage.toDataURL();
+	sharePath = window.location.href + path;
+	// saveToFileSystem(dataURItoBlob(path));
+	console.log(sharePath);
+	// saveToServer();
 	console.log(path);
 
 	//Delete save button
@@ -314,7 +362,7 @@ var initCanvas = function() {
 	//*******************************************************
 	var main = document.getElementById('main');
 	var body = imageEditingLayout();
-	var breakEl = document.createElement("br");	
+	var breakEl = document.createElement("br");
 	var breakEl1 = document.createElement("br");
 
 	main.appendChild(generateHeader());
@@ -369,7 +417,7 @@ var initCanvas = function() {
 (function() {
 
 	var main = document.getElementById("main");
-	var breakEl = document.createElement("br");	
+	var breakEl = document.createElement("br");
 	var breakEl1 = document.createElement("br");
 	//Page initial layout
 	//*************************************************************

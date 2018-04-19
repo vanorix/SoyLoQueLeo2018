@@ -32,6 +32,9 @@ div.transbox {
 	/*background: #008C44;
 	opacity: 0.3*/;
 }
+#dropdown-toggle {
+	background-color: #ED2024;
+}
 .hastag{
 	bottom: 15px;
 	right: 15px;
@@ -85,10 +88,10 @@ div.transbox {
 .upload{
 	color: #3b5998;
 	text-decoration: none;
-	font-size: 16px;
+	font-size: 20px;
 	background-color: #fff;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.17);
-	border-radius: 22px;
+	border-radius: 6px;
 	background-color: #3b5998;
 	display: inline-flex;
 	align-items: center;
