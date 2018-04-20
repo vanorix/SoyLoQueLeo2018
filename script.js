@@ -1,6 +1,6 @@
 var imageURL, imgObj, stage, image, frameObj, frame, path, sharePath;
 
-var frames = ['images/marcos/transparente.png', 
+var frames = ['images/marcos/transparente.png',
 	'images/marcos/Marco.png',
 	'images/marcos/ciencia-ficcion(final).png',
 	'images/marcos/cuento(final).png',
@@ -53,7 +53,7 @@ var generateSelection = function() {
 	patria.setAttribute("type", "button");
 	patria.setAttribute("onclick", "setFrame(1)");
 	patria.innerText = "Patria";
-	
+
 	var sify = document.createElement("button");
 	sify.setAttribute("class", "dropdown-item");
 	sify.setAttribute("type", "button");
@@ -123,7 +123,11 @@ var generateHome = function() {
 
 	var label = document.createElement("label");
 	label.setAttribute("class", "upload");
-	label.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> &nbsp;Sube una foto";
+	if (document.documentElement.clientWidth < 991) {
+		label.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> &nbsp;Hazte una foto";
+	} else {
+		label.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> &nbsp;Sube una foto";
+	}
 	var buttonUpload = document.createElement("input");
 	buttonUpload.setAttribute("id", "buttonUpload");
 	buttonUpload.setAttribute("type", "file");
@@ -448,14 +452,32 @@ var initCanvas = function() {
 	// Image
 	imageObj = new Image();
 	imageObj.onload = function() {
-		image = new Konva.Image({
-			image: imageObj,
-			y: 34,
-			x: 34,
-			width: 245,
-			height: 240,
-			draggable: true
-		});
+		var cropObj = {
+			width: 480,
+			height: 490,
+		};
+		if (document.documentElement.clientWidth < 991) {
+			image = new Konva.Image({
+				image: imageObj,
+				y: 34,
+				x: 279,
+				width: 240,
+				height: 245,
+				draggable: true,
+				rotation: 90,
+				// crop: cropObj
+			});
+		} else {
+			image = new Konva.Image({
+				image: imageObj,
+				y: 34,
+				x: 34,
+				width: 245,
+				height: 240,
+				draggable: true,
+				// crop: cropObj
+			});
+		}
 		// Frame
 		frameObj = new Image();
 		frameObj.onload = function() {
