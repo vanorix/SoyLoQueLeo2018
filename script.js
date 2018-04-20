@@ -1,6 +1,8 @@
 var imageURL, imgObj, stage, image, frameObj, frame, path, sharePath;
 
-var frames = ['images/marcos/transparente.png', 'images/marcos/ciencia-ficcion(final).png',
+var frames = ['images/marcos/transparente.png', 
+	'images/marcos/Marco.png',
+	'images/marcos/ciencia-ficcion(final).png',
 	'images/marcos/cuento(final).png',
 	'images/marcos/historico(final).png',
 	'images/marcos/poesia(final).png',
@@ -46,36 +48,43 @@ var generateSelection = function() {
 	// frameSelect.setAttribute("onchange", "setFrame()");
 	frameSelect.setAttribute("class", "dropdown-menu");
 
+	var patria = document.createElement("button");
+	patria.setAttribute("class", "dropdown-item");
+	patria.setAttribute("type", "button");
+	patria.setAttribute("onclick", "setFrame(1)");
+	patria.innerText = "Patria";
+	
 	var sify = document.createElement("button");
 	sify.setAttribute("class", "dropdown-item");
 	sify.setAttribute("type", "button");
-	sify.setAttribute("onclick", "setFrame(1)");
+	sify.setAttribute("onclick", "setFrame(2)");
 	sify.innerText = "Ciencia Ficción";
 
 	var cuento = document.createElement("button");
 	cuento.setAttribute("class", "dropdown-item");
 	cuento.setAttribute("type", "button");
-	cuento.setAttribute("onclick", "setFrame(2)");
+	cuento.setAttribute("onclick", "setFrame(3)");
 	cuento.innerText = "Cuentos";
 
 	var historico = document.createElement("button");
 	historico.setAttribute("class", "dropdown-item");
 	historico.setAttribute("type", "button");
-	historico.setAttribute("onclick", "setFrame(3)");
+	historico.setAttribute("onclick", "setFrame(4)");
 	historico.innerText = "Historia";
 
 	var poesia = document.createElement("button");
 	poesia.setAttribute("class", "dropdown-item");
 	poesia.setAttribute("type", "button");
-	poesia.setAttribute("onclick", "setFrame(4)");
+	poesia.setAttribute("onclick", "setFrame(5)");
 	poesia.innerText = "Poesia";
 
 	var terror = document.createElement("button");
 	terror.setAttribute("class", "dropdown-item");
 	terror.setAttribute("type", "button");
-	terror.setAttribute("onclick", "setFrame(5)");
+	terror.setAttribute("onclick", "setFrame(6)");
 	terror.innerText = "Terror";
 
+	frameSelect.appendChild(patria);
 	frameSelect.appendChild(sify);
 	frameSelect.appendChild(cuento);
 	frameSelect.appendChild(historico);
@@ -118,14 +127,16 @@ var generateHome = function() {
 	var buttonUpload = document.createElement("input");
 	buttonUpload.setAttribute("id", "buttonUpload");
 	buttonUpload.setAttribute("type", "file");
+	buttonUpload.setAttribute("accept", "image/*");
+	buttonUpload.setAttribute("capture", "filesystem");
 	// buttonUpload.setAttribute("class", "btn btn-primary");
 	buttonUpload.setAttribute("onchange", "uploadImage(this)");
 
 	label.appendChild(buttonUpload);
 
 	panel.appendChild(buttonFacebook);
-	panel.appendChild(breakEl);
-	panel.appendChild(breakEl1);
+	// panel.appendChild(breakEl);
+	// panel.appendChild(breakEl1);
 	panel.appendChild(label);
 
 	body.appendChild(panel);
@@ -404,7 +415,7 @@ var imageEditingLayout = function() {
 	thumb.appendChild(img);
 	buttons.appendChild(buttonGuardar);
 	preview.appendChild(thumb);
-	preview.appendChild(breakEl);
+	// preview.appendChild(breakEl);
 	preview.appendChild(buttons);
 	body.appendChild(preview);
 
