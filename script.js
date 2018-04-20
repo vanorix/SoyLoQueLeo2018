@@ -9,7 +9,7 @@ var frames = ['images/marcos/transparente.png',
 	'images/marcos/terror(final).png'
 ];
 
-var currentFrame = 0;
+var currentFrame = 1;
 
 //Generates standart header element.
 var generateHeader = function() {
@@ -40,7 +40,7 @@ var generateSelection = function() {
 	toggle.setAttribute("aria-haspopup", "true");
 	toggle.setAttribute("aria-expanded", "false");
 	toggle.setAttribute("id", "dropdown-toggle");
-	toggle.innerText = "Selecciona Un Genero Literario";
+	toggle.innerText = "¿Cuál de estos géneros es tu favorito?";
 
 	var frameSelect = document.createElement("div");
 	frameSelect.setAttribute("id", "dropdown-menu");
