@@ -123,7 +123,7 @@ var generateHome = function() {
 
 	var label = document.createElement("label");
 	label.setAttribute("class", "upload");
-	label.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> &nbsp;Subir desde tu dispositivo";
+	label.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> &nbsp;Sube una foto";
 	var buttonUpload = document.createElement("input");
 	buttonUpload.setAttribute("id", "buttonUpload");
 	buttonUpload.setAttribute("type", "file");
