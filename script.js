@@ -124,7 +124,7 @@ var generateHome = function() {
 	var label = document.createElement("label");
 	label.setAttribute("class", "upload");
 	if (document.documentElement.clientWidth < 991) {
-		label.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> &nbsp;Hazte una foto";
+		label.innerHTML = "<i class='fas fa-camera'></i> &nbsp;Hazte una foto";
 	} else {
 		label.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> &nbsp;Sube una foto";
 	}
@@ -324,7 +324,7 @@ var saveToServer = function() {
 	var settings = {
 		"async": true,
 		"crossDomain": true,
-		"url": "https://1fb96d42.ngrok.io/api/save",
+		"url": "https://4449e3a0.ngrok.io/api/save",
 		"method": "POST",
 		"headers": {
 			"Content-Type": "application/x-www-form-urlencoded"
