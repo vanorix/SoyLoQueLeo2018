@@ -51,36 +51,42 @@ var generateSelection = function() {
 	var patria = document.createElement("button");
 	patria.setAttribute("class", "dropdown-item");
 	patria.setAttribute("type", "button");
+	// patria.setAttribute("href", "javascript:;");
 	patria.setAttribute("onclick", "setFrame(1)");
 	patria.innerText = "Patria";
 
 	var sify = document.createElement("button");
 	sify.setAttribute("class", "dropdown-item");
 	sify.setAttribute("type", "button");
+	// sify.setAttribute("href", "javascript:;");
 	sify.setAttribute("onclick", "setFrame(2)");
 	sify.innerText = "Ciencia Ficción";
 
 	var cuento = document.createElement("button");
 	cuento.setAttribute("class", "dropdown-item");
 	cuento.setAttribute("type", "button");
+	// cuento.setAttribute("href", "javascript:;");
 	cuento.setAttribute("onclick", "setFrame(3)");
 	cuento.innerText = "Cuentos";
 
 	var historico = document.createElement("button");
 	historico.setAttribute("class", "dropdown-item");
 	historico.setAttribute("type", "button");
+	// historico.setAttribute("href", "javascript:;");
 	historico.setAttribute("onclick", "setFrame(4)");
 	historico.innerText = "Historia";
 
 	var poesia = document.createElement("button");
 	poesia.setAttribute("class", "dropdown-item");
 	poesia.setAttribute("type", "button");
+	// poesia.setAttribute("href", "javascript:;");
 	poesia.setAttribute("onclick", "setFrame(5)");
 	poesia.innerText = "Poesia";
 
 	var terror = document.createElement("button");
 	terror.setAttribute("class", "dropdown-item");
 	terror.setAttribute("type", "button");
+	// terror.setAttribute("href", "javascript:;");
 	terror.setAttribute("onclick", "setFrame(6)");
 	terror.innerText = "Terror";
 
@@ -296,14 +302,21 @@ var uploadImageFB = function() {
 
 var uploadImage = function(input) {
 	if (input.files && input.files[0]) {
+		// var loadingImage = loadImage(
+		// 	,
+		// 	function(img) {
+
+		// 	}, {
+		// 		maxWidth: 240,
+		// 		maxHeight: 240,
+		// 		orientation: 1
+		// 	});
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			imageURL = e.target.result;
 			initCanvas();
-		}
+		};
 		reader.readAsDataURL(input.files[0]);
-	} else {
-		// path = 
 	}
 };
 
@@ -324,7 +337,7 @@ var saveToServer = function() {
 	var settings = {
 		"async": true,
 		"crossDomain": true,
-		"url": "https://4449e3a0.ngrok.io/api/save",
+		"url": "https://023f85bb.ngrok.io/api/save",
 		"method": "POST",
 		"headers": {
 			"Content-Type": "application/x-www-form-urlencoded"
