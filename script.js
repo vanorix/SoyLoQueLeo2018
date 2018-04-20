@@ -356,7 +356,7 @@ var saveImage = function() {
 	buttonDownload.setAttribute("class", "btn btn-primary");
 	buttonDownload.setAttribute("href", "javascript:;");
 	buttonDownload.setAttribute("onclick", "downloadImage()");
-	buttonDownload.innerHTML = "<i class='fas fa-cloud-download-alt'></i> &nbsp;Descargar Imagen";
+	buttonDownload.innerHTML = "<i class='fas fa-cloud-download-alt'></i> &nbsp;Descarga tu imagen";
 
 	var buttonShare = document.createElement("a");
 	buttonShare.setAttribute("id", "ShareButton");
@@ -399,7 +399,7 @@ var imageEditingLayout = function() {
 	buttonGuardar.setAttribute("class", "btn btn-primary");
 	buttonGuardar.setAttribute("href", "javascript:;");
 	buttonGuardar.setAttribute("onclick", "saveImage()");
-	buttonGuardar.innerHTML = "<i class='fas fa-save'></i> &nbsp;Guardar Imagen"
+	buttonGuardar.innerHTML = "<i class='fas fa-save'></i> &nbsp;¡Listo!"
 
 	var breakEl = document.createElement("br");
 
