@@ -45,12 +45,19 @@ div.transbox {
 #ShareButton {
 	display: none;
 }
+#contest_paragraph{
+	color: #ffffff;
+}
+.contest_title{
+	font-family: 'Montserrat', Quicksand;
+	color: #008C44;
+}
 .contest{
 	/*width: 50%;*/
 	text-align: center;
 }
 .contest ol{
-	text-align: left;
+	text-align: center;
 }
 .contest li{
 	color:#008C44;
@@ -220,5 +227,8 @@ div.transbox {
 	#headerImage {
 		width: 240px;
 		height: 120px;
+	}
+	.contest ol{
+		text-align: left;
 	}
 }

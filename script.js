@@ -42,25 +42,30 @@ var generateHeader = function() {
 var generateContest = function(){
 	var container = document.createElement("div");
 	container.setAttribute("class", "contest");
+	var titulo = document.createElement("h2");
+	titulo.setAttribute("class", "contest_title");
+	titulo.innerHTML = "Participa en nuestro concurso:";
 
 	var pasos = document.createElement("ol");
 	pasos.setAttribute("class", "favth-list-square");
 	var paso1 = document.createElement("li");
 	paso1.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> Sube tu foto usando la aplicación.";
 	var paso2 = document.createElement("li");
-	paso2.innerHTML = "<i class='far fa-image'></i> Elige tu marco favorito y descárgala.";
+	paso2.innerHTML = "<i class='far fa-object-group'></i> Elige tu marco favorito y descárgala.";
 	var paso3 = document.createElement("li");
 	paso3.innerHTML = "<i class='fab fa-instagram'></i> Compartela en Instagram utilizando el hashtag <span class='hashtag'>#SoyLoQueLeo.</span>";
 	var paso4 = document.createElement("li");
 	paso4.innerHTML = "<i class='fas fa-tag'></i> Etiqueta las cuentas <a href='https://www.instagram.com/vicerdo/'>@Vicerdo</a> y <a href='https://www.instagram.com/tubiblioteca/'>@tubiblioteca</a>.";
 	var text = document.createElement("p");
-	text.innerHTML = "La foto con más  	&#34;likes&#34; gana una de nuestras obras literarias.<br><em>¡El ganador será anunciado a través de nuestras redes sociales!</em>.";
+	text.setAttribute("id", "contest_paragraph");
+	text.innerHTML = "La foto con más  	&#34;likes&#34; gana una de nuestras obras literarias.<br><em>¡El ganador será anunciado a través de nuestras redes sociales!</em>.<br> <span style='color:#ED2024'>*Se sortearán dos libros cada día.</span>";
 
 	pasos.appendChild(paso1);
 	pasos.appendChild(paso2);
 	pasos.appendChild(paso3);
 	pasos.appendChild(paso4);
 
+	container.appendChild(titulo);
 	container.appendChild(pasos);
 	container.appendChild(text);
 
