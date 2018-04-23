@@ -1,5 +1,11 @@
+// ==================================================================
+// All global variables
+// ==================================================================
 var imageURL, imgObj, stage, image, frameObj, frame, path, sharePath;
 
+// ==================================================================
+// Frames list
+// ==================================================================
 var frames = ['images/marcos/transparente.png',
 	'images/marcos/Marco.png',
 	'images/marcos/ciencia-ficcion(final).png',
@@ -9,9 +15,14 @@ var frames = ['images/marcos/transparente.png',
 	'images/marcos/terror(final).png'
 ];
 
+// ==================================================================
+// Variable containing the index for the current frame
+// ==================================================================
 var currentFrame = 1;
 
-//Generates standart header element.
+// ==================================================================
+// Generates all header elements
+// ==================================================================
 var generateHeader = function() {
 	var header = document.createElement("div");
 	header.setAttribute("class", "head");
@@ -28,6 +39,9 @@ var generateHeader = function() {
 	return header;
 };
 
+// ==================================================================
+// Generate all frame selection elements
+// ==================================================================
 var generateSelection = function() {
 	var dropdown = document.createElement("div");
 	dropdown.setAttribute("class", "dropdown");
@@ -103,12 +117,18 @@ var generateSelection = function() {
 	return dropdown;
 };
 
+// ==================================================================
+// Set the currentFrame variable to the selected frame and re-initiliazes
+// the canvas section
+// ==================================================================
 var setFrame = function(selection) {
 	currentFrame = selection;
 	initCanvas();
 };
 
-//Generate homepage
+// ==================================================================
+// Generates all homepage elements
+// ==================================================================
 var generateHome = function() {
 	var body = document.createElement("div");
 	body.setAttribute("class", "body");
@@ -153,6 +173,9 @@ var generateHome = function() {
 	return body;
 };
 
+// ==================================================================
+// Clears the specified HTML element of all its child nodes
+// ==================================================================
 var clearElement = function(id) {
 	var list = document.getElementById(id);
 
@@ -161,6 +184,9 @@ var clearElement = function(id) {
 	}
 };
 
+// ==================================================================
+// Logs in to a Facebook account using Oauth and FB sdk
+// ==================================================================
 var fbLogin = function() {
 	FB.login(function(response) {
 		console.log(response);
@@ -181,6 +207,9 @@ var fbLogin = function() {
 	});
 };
 
+// ==================================================================
+// It's supposed to post an image to facebook (maybe for a later release)
+// ==================================================================
 var postImageToFacebook = function(imageData) {
 	$.post(
 		'http://data-uri-to-img-url.herokuapp.com/images.json', {
@@ -194,6 +223,9 @@ var postImageToFacebook = function(imageData) {
 	);
 }
 
+// ==================================================================
+// Transforms dataURL to Blob object
+// ==================================================================
 var dataURItoBlob = function(dataURI) {
 	// convert base64/URLEncoded data component to raw binary data held in a string
 	var byteString;
@@ -225,6 +257,9 @@ var guid = function() {
 	return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
+// ==================================================================
+// Transforms data URL to JS File object
+// ==================================================================
 var dataURLtoFile = function(dataurl, filename) {
 	var arr = dataurl.split(','),
 		mime = arr[0].match(/:(.*?);/)[1],
@@ -239,6 +274,9 @@ var dataURLtoFile = function(dataurl, filename) {
 	});
 }
 
+// ==================================================================
+// Opens a FaceBook UI window to share the image in the client's feed
+// ==================================================================
 var shareImage = function() {
 	// if (path) {
 	// 	FB.ui({
@@ -293,6 +331,9 @@ var shareImage = function() {
 	// postImageToFacebook(path);
 };
 
+// ==================================================================
+// Uploads and image from facebook
+// ==================================================================
 var uploadImageFB = function() {
 	// fbLogin().then(function(response) {
 	// 	console.log(response);
@@ -300,26 +341,54 @@ var uploadImageFB = function() {
 	fbLogin();
 };
 
+// ==================================================================
+// Takes the uploaded image and transforms it to base64
+// ==================================================================
 var uploadImage = function(input) {
-	if (input.files && input.files[0]) {
-		// var loadingImage = loadImage(
-		// 	,
-		// 	function(img) {
+	// if (input.files && input.files[0]) {
+	// 	var reader = new FileReader();
+	// 	reader.onload = function(e) {
+	// 		imageURL = e.target.result;
+	// 		initCanvas();
+	// 	}
+	// 	reader.readAsDataURL(input.files[0]);
+	// } else {
+	// 	// path = 
+	// }
+	var options;
+	if (document.documentElement.clientWidth < 991){
+		options = {
+			maxWidth: 420,
+			maxHeight: 420,
+			orientation: true,
+			crop: true
+		}
+	} else {
+		options = {
+			maxWidth: 420,
+			maxHeight: 420,
+			orientation: true,
+			crop: true
+		}
+	}
 
-		// 	}, {
-		// 		maxWidth: 240,
-		// 		maxHeight: 240,
-		// 		orientation: 1
-		// 	});
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			imageURL = e.target.result;
+	var loadingImage = loadImage(
+		input.files[0],
+		function(img) {
+			imageURL = img.toDataURL();
+			console.log(imageURL);
 			initCanvas();
-		};
-		reader.readAsDataURL(input.files[0]);
+		}, options
+	);
+	if (!loadingImage) {
+		// Alternative code ...
 	}
 };
 
+// ==================================================================
+// Creates a temporary link and anchor element to download the image
+// that was edit.
+// ==================================================================
 var downloadImage = function() {
 	var linkDownload = document.createElement("a");
 	var imageFile = dataURItoBlob(path);
@@ -331,6 +400,9 @@ var downloadImage = function() {
 	delete linkDownload;
 };
 
+// ==================================================================
+// Sends a base64 image to the server using an ajax call
+// ==================================================================
 var saveToServer = function() {
 	// var formData = new FormData();
 	var to_send = path;
@@ -352,6 +424,9 @@ var saveToServer = function() {
 	});
 }
 
+// ==================================================================
+// Saves the edited image and sends it through an ajax call to the server
+// ==================================================================
 var saveImage = function() {
 	stage.find('Transformer').destroy();
 	layer.draw();
@@ -396,6 +471,9 @@ var saveImage = function() {
 	//layer.draw();
 };
 
+// ==================================================================
+// Layout for the image editing section on the app
+// ==================================================================
 var imageEditingLayout = function() {
 	var body = document.createElement("div");
 	body.setAttribute("class", "body");
@@ -439,6 +517,9 @@ var imageEditingLayout = function() {
 	return body;
 };
 
+// ==================================================================
+// Initializes canvas element with uploaded image and frame using Konva
+// ==================================================================
 var initCanvas = function() {
 	clearElement('main');
 
@@ -473,11 +554,11 @@ var initCanvas = function() {
 			image = new Konva.Image({
 				image: imageObj,
 				y: 34,
-				x: 279,
-				width: 240,
+				x: 34,
+				width: 245,
 				height: 245,
-				draggable: true,
-				rotation: 90,
+				draggable: true
+				// rotation: 90,
 				// crop: cropObj
 			});
 		} else {
@@ -516,6 +597,9 @@ var initCanvas = function() {
 	console.log(imageURL);
 };
 
+// ==================================================================
+// Application entry point.
+// ==================================================================
 (function() {
 
 	var main = document.getElementById("main");
