@@ -14,6 +14,7 @@ body{
 	/*background-image: url("images/javier-Wallpaper-733.jpg");*/
     background-repeat: repeat;
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFD785', endColorstr='#F8A547',GradientType=0 ); /* IE6-9 */
+	text-align: center;
 }
 h1 {
 	color: #4286f4 !important;
@@ -44,10 +45,20 @@ div.transbox {
 #ShareButton {
 	display: none;
 }
-.hastag{
+.contest{
+	/*width: 50%;*/
+	text-align: center;
+}
+.contest ol{
+	text-align: left;
+}
+.contest li{
+	color:#008C44;
+}
+.hashtag{
 	bottom: 15px;
 	right: 15px;
-	color:#fff;
+	color:#ED2024;
 	font-size: 16px;
 	line-height: 1;
 	margin-top: 20px;
@@ -62,7 +73,6 @@ div.transbox {
 	-webkit-background-size: contain;
 	background-size: contain;
 	background-repeat: no-repeat;
-	background-image: url('../img/logoOp.png');
 }
 .head{
 	text-align: center;
