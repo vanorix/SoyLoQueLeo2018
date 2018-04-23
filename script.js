@@ -339,15 +339,43 @@ var uploadImageFB = function() {
 // Takes the uploaded image and transforms it to base64
 // ==================================================================
 var uploadImage = function(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			imageURL = e.target.result;
-			initCanvas();
+	// if (input.files && input.files[0]) {
+	// 	var reader = new FileReader();
+	// 	reader.onload = function(e) {
+	// 		imageURL = e.target.result;
+	// 		initCanvas();
+	// 	}
+	// 	reader.readAsDataURL(input.files[0]);
+	// } else {
+	// 	// path = 
+	// }
+	var options;
+	if (document.documentElement.clientWidth < 991){
+		options = {
+			maxWidth: 420,
+			maxHeight: 420,
+			orientation: true,
+			crop: true
 		}
-		reader.readAsDataURL(input.files[0]);
 	} else {
-		// path = 
+		options = {
+			maxWidth: 420,
+			maxHeight: 420,
+			orientation: true,
+			crop: true
+		}
+	}
+
+	var loadingImage = loadImage(
+		input.files[0],
+		function(img) {
+			imageURL = img.toDataURL();
+			console.log(imageURL);
+			initCanvas();
+		}, options
+	);
+	if (!loadingImage) {
+		// Alternative code ...
 	}
 };
 
@@ -375,7 +403,7 @@ var saveToServer = function() {
 	var settings = {
 		"async": true,
 		"crossDomain": true,
-		"url": "https://4449e3a0.ngrok.io/api/save",
+		"url": "https://023f85bb.ngrok.io/api/save",
 		"method": "POST",
 		"headers": {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -520,11 +548,11 @@ var initCanvas = function() {
 			image = new Konva.Image({
 				image: imageObj,
 				y: 34,
-				x: 279,
-				width: 240,
+				x: 34,
+				width: 245,
 				height: 245,
-				draggable: true,
-				rotation: 90,
+				draggable: true
+				// rotation: 90,
 				// crop: cropObj
 			});
 		} else {
