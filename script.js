@@ -60,7 +60,7 @@ var generateSelection = function() {
 	sify.setAttribute("type", "button");
 	// sify.setAttribute("href", "javascript:;");
 	sify.setAttribute("onclick", "setFrame(2)");
-	sify.innerText = "Ciencia Ficción";
+	sify.innerText = "Ciencia ficción";
 
 	var cuento = document.createElement("button");
 	cuento.setAttribute("class", "dropdown-item");
@@ -81,7 +81,7 @@ var generateSelection = function() {
 	poesia.setAttribute("type", "button");
 	// poesia.setAttribute("href", "javascript:;");
 	poesia.setAttribute("onclick", "setFrame(5)");
-	poesia.innerText = "Poesia";
+	poesia.innerText = "Poesía";
 
 	var terror = document.createElement("button");
 	terror.setAttribute("class", "dropdown-item");
