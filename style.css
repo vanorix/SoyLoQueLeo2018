@@ -61,6 +61,7 @@ div.transbox {
 }
 .contest li{
 	color:#008C44;
+	list-style-type: none;
 }
 .hashtag{
 	bottom: 15px;

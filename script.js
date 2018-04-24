@@ -43,7 +43,7 @@ var generateContest = function() {
 	titulo.setAttribute("class", "contest_title");
 	titulo.innerHTML = "Participa en nuestro concurso:";
 
-	var pasos = document.createElement("ol");
+	var pasos = document.createElement("ul");
 	pasos.setAttribute("class", "favth-list-square");
 	var paso1 = document.createElement("li");
 	paso1.innerHTML = "<i class='fas fa-cloud-upload-alt'></i> Sube tu foto usando la aplicación.";
