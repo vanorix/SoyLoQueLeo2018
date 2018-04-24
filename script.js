@@ -30,16 +30,13 @@ var generateHeader = function() {
 	var imgHead = document.createElement("img");
 	imgHead.setAttribute("src", "images/Soy-Lo-Que-Leo.png");
 	imgHead.setAttribute("id", "headerImage");
-	// var titleHead = document.createElement("h1");
-	// titleHead.innerText = "Soy Lo Que Leo";
 
 	header.appendChild(imgHead);
-	// header.appendChild(titleHead);
 
 	return header;
 };
 
-var generateContest = function(){
+var generateContest = function() {
 	var container = document.createElement("div");
 	container.setAttribute("class", "contest");
 	var titulo = document.createElement("h2");
@@ -105,35 +102,30 @@ var generateSelection = function() {
 	var sify = document.createElement("button");
 	sify.setAttribute("class", "dropdown-item");
 	sify.setAttribute("type", "button");
-	// sify.setAttribute("href", "javascript:;");
 	sify.setAttribute("onclick", "setFrame(2)");
 	sify.innerText = "Ciencia ficción";
 
 	var cuento = document.createElement("button");
 	cuento.setAttribute("class", "dropdown-item");
 	cuento.setAttribute("type", "button");
-	// cuento.setAttribute("href", "javascript:;");
 	cuento.setAttribute("onclick", "setFrame(3)");
 	cuento.innerText = "Cuentos";
 
 	var historico = document.createElement("button");
 	historico.setAttribute("class", "dropdown-item");
 	historico.setAttribute("type", "button");
-	// historico.setAttribute("href", "javascript:;");
 	historico.setAttribute("onclick", "setFrame(4)");
 	historico.innerText = "Historia";
 
 	var poesia = document.createElement("button");
 	poesia.setAttribute("class", "dropdown-item");
 	poesia.setAttribute("type", "button");
-	// poesia.setAttribute("href", "javascript:;");
 	poesia.setAttribute("onclick", "setFrame(5)");
 	poesia.innerText = "Poesía";
 
 	var terror = document.createElement("button");
 	terror.setAttribute("class", "dropdown-item");
 	terror.setAttribute("type", "button");
-	// terror.setAttribute("href", "javascript:;");
 	terror.setAttribute("onclick", "setFrame(6)");
 	terror.innerText = "Terror";
 
@@ -192,14 +184,11 @@ var generateHome = function() {
 	buttonUpload.setAttribute("type", "file");
 	buttonUpload.setAttribute("accept", "image/*");
 	buttonUpload.setAttribute("capture", "filesystem");
-	// buttonUpload.setAttribute("class", "btn btn-primary");
 	buttonUpload.setAttribute("onchange", "uploadImage(this)");
 
 	label.appendChild(buttonUpload);
 
 	panel.appendChild(buttonFacebook);
-	// panel.appendChild(breakEl);
-	// panel.appendChild(breakEl1);
 	panel.appendChild(label);
 
 	body.appendChild(panel);
@@ -222,15 +211,13 @@ var clearElement = function(id) {
 // ==================================================================
 var fbLogin = function() {
 	FB.login(function(response) {
-		console.log(response);
+		// console.log(response);
 		if (response.status === 'connected') {
-			// var queryURL = '/' + response.authResponse.userID + '/picture';
-			// console.log(queryURL);
 			FB.api('/me', 'GET', {
 					fields: 'picture.width(306).height(306)'
 				},
 				function(response) {
-					console.log(response);
+					// console.log(response);
 					imageURL = response.picture.data.url;
 					initCanvas();
 				});
@@ -251,7 +238,7 @@ var postImageToFacebook = function(imageData) {
 			}]
 		},
 		function(res) {
-			console.log(res.url);
+			// console.log(res.url);
 		}
 	);
 }
@@ -311,48 +298,9 @@ var dataURLtoFile = function(dataurl, filename) {
 // Opens a FaceBook UI window to share the image in the client's feed
 // ==================================================================
 var shareImage = function() {
-	// if (path) {
-	// 	FB.ui({
-	// 		method: 'feed',
-	// 		link: path,
-	// 		caption: 'Soy Lo que Leo',
-	// 		source: path
-	// 	}, function(response) {});
-	// }
-	// var publish = {
-	// 	method: 'feed',
-	// 	message: 'Soy lo que leo',
-	// 	href: window.location.href,
-	// 	attachment: {
-	// 		name: 'Connect',
-	// 		caption: 'Soy lo que leo',
-	// 		href: window.location.href,
-	// 		media: [{
-	// 			type: 'image',
-	// 			href: window.location.href,
-	// 			src: path
-	// 		}],
-	// 	},
-	// 	action_links: [{
-	// 		text: 'Soy lo que leo',
-	// 		href: window.location.href
-	// 	}],
-	// 	user_prompt_message: 'Comparte tu imagen!'
-	// };
-
-	// FB.ui(publish);
-
-	// if (sharePath) {
-	// 	FB.ui({
-	// 		method: 'feed',
-	// 		link: sharePath,
-	// 		caption: 'Orgullo Dominicano',
-	// 		source: sharePath
-	// 	}, function(response) {});
-	// }
 	var fileName = guid() + '.png';
 	var imageFile = dataURLtoFile(path, fileName);
-	console.log(imageFile);
+	// console.log(imageFile);
 	FB.ui({
 		method: 'share',
 		href: window.location.href,
@@ -368,9 +316,6 @@ var shareImage = function() {
 // Uploads and image from facebook
 // ==================================================================
 var uploadImageFB = function() {
-	// fbLogin().then(function(response) {
-	// 	console.log(response);
-	// });
 	fbLogin();
 };
 
@@ -378,18 +323,8 @@ var uploadImageFB = function() {
 // Takes the uploaded image and transforms it to base64
 // ==================================================================
 var uploadImage = function(input) {
-	// if (input.files && input.files[0]) {
-	// 	var reader = new FileReader();
-	// 	reader.onload = function(e) {
-	// 		imageURL = e.target.result;
-	// 		initCanvas();
-	// 	}
-	// 	reader.readAsDataURL(input.files[0]);
-	// } else {
-	// 	// path = 
-	// }
 	var options;
-	if (document.documentElement.clientWidth < 991){
+	if (document.documentElement.clientWidth < 991) {
 		options = {
 			maxWidth: 420,
 			maxHeight: 420,
@@ -409,7 +344,7 @@ var uploadImage = function(input) {
 		input.files[0],
 		function(img) {
 			imageURL = img.toDataURL();
-			console.log(imageURL);
+			// console.log(imageURL);
 			initCanvas();
 		}, options
 	);
@@ -453,7 +388,7 @@ var saveToServer = function() {
 	}
 
 	$.ajax(settings).done(function(response) {
-		console.log(response);
+		// console.log(response);
 	});
 }
 
@@ -465,10 +400,10 @@ var saveImage = function() {
 	layer.draw();
 	path = stage.toDataURL();
 	sharePath = window.location.href + path;
-	console.log(dataURItoBlob(path));
-	console.log(sharePath);
+	// console.log(dataURItoBlob(path));
+	// console.log(sharePath);
 	saveToServer();
-	console.log(path);
+	// console.log(path);
 
 	//Delete save button
 	var buttons = document.getElementById("buttons");
@@ -495,13 +430,7 @@ var saveImage = function() {
 
 	buttons.appendChild(buttonDownload);
 	buttons.appendChild(breakEl);
-	// buttons.appendChild(breakEl1);
 	buttons.appendChild(buttonShare);
-
-	//var tr = new Konva.Transformer();
-	//layer.add(tr);
-	//tr.attachTo(image);
-	//layer.draw();
 };
 
 // ==================================================================
@@ -627,7 +556,7 @@ var initCanvas = function() {
 	imageObj.src = imageURL;
 	imageObj.setAttribute('crossOrigin', 'anonymous');
 
-	console.log(imageURL);
+	// console.log(imageURL);
 };
 
 // ==================================================================
