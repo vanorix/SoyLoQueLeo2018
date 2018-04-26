@@ -456,7 +456,14 @@ var imageEditingLayout = function() {
 	buttonGuardar.setAttribute("class", "btn btn-primary");
 	buttonGuardar.setAttribute("href", "javascript:;");
 	buttonGuardar.setAttribute("onclick", "saveImage()");
-	buttonGuardar.innerHTML = "<i class='fas fa-save'></i> &nbsp;¡Listo!"
+	buttonGuardar.innerHTML = "<i class='fas fa-save'></i> &nbsp;¡Listo!";
+
+	var resetLink = document.createElement("a");
+	resetLink.setAttribute("id", "reset");
+	resetLink.setAttribute("class", "btn btn-secundary");
+	resetLink.setAttribute("onclick", "location.reload()");
+	resetLink.setAttribute("href", "javascript:;");
+	resetLink.innerText = "Empezar denuevo";
 
 	var breakEl = document.createElement("br");
 
@@ -471,8 +478,10 @@ var imageEditingLayout = function() {
 	// body.appendChild(breakEl3);
 	thumb.appendChild(img);
 	buttons.appendChild(buttonGuardar);
+	buttons.appendChild(breakEl);
+	buttons.appendChild(resetLink);
+
 	preview.appendChild(thumb);
-	// preview.appendChild(breakEl);
 	preview.appendChild(buttons);
 	body.appendChild(preview);
 
