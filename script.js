@@ -89,13 +89,11 @@ var generateSelection = function() {
 	var frameSelect = document.createElement("div");
 	frameSelect.setAttribute("id", "dropdown-menu");
 	frameSelect.setAttribute("aria-labelledby", "dropdown-toggle");
-	// frameSelect.setAttribute("onchange", "setFrame()");
 	frameSelect.setAttribute("class", "dropdown-menu");
 
 	var patria = document.createElement("button");
 	patria.setAttribute("class", "dropdown-item");
 	patria.setAttribute("type", "button");
-	// patria.setAttribute("href", "javascript:;");
 	patria.setAttribute("onclick", "setFrame(1)");
 	patria.innerText = "Patria";
 
@@ -312,17 +310,7 @@ var shareImage = function() {
 	// postImageToFacebook(path);
 };
 
-// ==================================================================
-// Uploads and image from facebook
-// ==================================================================
-var uploadImageFB = function() {
-	fbLogin();
-};
-
-// ==================================================================
-// Takes the uploaded image and transforms it to base64
-// ==================================================================
-var uploadImage = function(input) {
+var imageLoader = function(imageFile) {
 	var options;
 	if (document.documentElement.clientWidth < 991) {
 		options = {
@@ -339,18 +327,28 @@ var uploadImage = function(input) {
 			crop: true
 		}
 	}
-
 	var loadingImage = loadImage(
-		input.files[0],
+		imageFile,
 		function(img) {
 			imageURL = img.toDataURL();
 			// console.log(imageURL);
 			initCanvas();
 		}, options
 	);
-	if (!loadingImage) {
-		// Alternative code ...
-	}
+};
+
+// ==================================================================
+// Uploads and image from facebook
+// ==================================================================
+var uploadImageFB = function() {
+	fbLogin();
+};
+
+// ==================================================================
+// Takes the uploaded image and transforms it to base64
+// ==================================================================
+var uploadImage = function(input) {
+	imageLoader(input.files[0]);
 };
 
 // ==================================================================
@@ -456,7 +454,14 @@ var imageEditingLayout = function() {
 	buttonGuardar.setAttribute("class", "btn btn-primary");
 	buttonGuardar.setAttribute("href", "javascript:;");
 	buttonGuardar.setAttribute("onclick", "saveImage()");
-	buttonGuardar.innerHTML = "<i class='fas fa-save'></i> &nbsp;¡Listo!"
+	buttonGuardar.innerHTML = "<i class='fas fa-save'></i> &nbsp;¡Listo!";
+
+	var resetLink = document.createElement("a");
+	resetLink.setAttribute("id", "reset");
+	resetLink.setAttribute("class", "btn btn-secundary");
+	resetLink.setAttribute("onclick", "location.reload()");
+	resetLink.setAttribute("href", "javascript:;");
+	resetLink.innerText = "Empezar denuevo";
 
 	var breakEl = document.createElement("br");
 
@@ -471,8 +476,10 @@ var imageEditingLayout = function() {
 	// body.appendChild(breakEl3);
 	thumb.appendChild(img);
 	buttons.appendChild(buttonGuardar);
+	buttons.appendChild(breakEl);
+	buttons.appendChild(resetLink);
+
 	preview.appendChild(thumb);
-	// preview.appendChild(breakEl);
 	preview.appendChild(buttons);
 	body.appendChild(preview);
 
@@ -559,12 +566,58 @@ var initCanvas = function() {
 	// console.log(imageURL);
 };
 
+var dropHandler = function(ev) {
+	console.log('File(s) dropped');
+
+	// Prevent default behavior (Prevent file from being opened)
+	ev.preventDefault();
+
+	if (ev.dataTransfer.items) {
+		// Use DataTransferItemList interface to access the file(s)
+		for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+			// If dropped items aren't files, reject them
+			if (ev.dataTransfer.items[i].kind === 'file') {
+				var file = ev.dataTransfer.items[i].getAsFile();
+				imageLoader(file);
+				console.log('... file[' + i + '].name = ' + file.name);
+				return 0;
+			}
+		}
+	} else {
+		// Use DataTransfer interface to access the file(s)
+		for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+			imageLoader(ev.dataTransfer.files[i]);
+			return 0;
+			// console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+		}
+	}
+
+	// Pass event to removeDragData for cleanup
+	removeDragData(ev)
+};
+
+
+var dragOverHandler = function(ev) {
+	console.log('File(s) in drop zone');
+
+	// Prevent default behavior (Prevent file from being opened)
+	ev.preventDefault();
+};
+
+
 // ==================================================================
 // Application entry point.
 // ==================================================================
 (function() {
 
 	var main = document.getElementById("main");
+	// ==============================================================
+	// Integrating drag and drop funciotality on the body element
+	// ==============================================================
+	main.setAttribute("ondrop", "dropHandler(event)");
+	main.setAttribute("ondragover", "dragOverHandler(event)");
+	// main.setAttribute("class", "drop__zone");
+
 	var breakEl = document.createElement("br");
 	var breakEl1 = document.createElement("br");
 	var breakEl2 = document.createElement("br");
