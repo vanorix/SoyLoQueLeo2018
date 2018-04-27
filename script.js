@@ -58,7 +58,7 @@ var generateContest = function() {
 	paso4.innerHTML = "<i class='fas fa-tag'></i> Etiqueta las cuentas <a href='https://www.instagram.com/vicerdo/'>@Vicerdo</a> y <a href='https://www.instagram.com/tubiblioteca/'>@tubiblioteca</a>.";
 	var text = document.createElement("p");
 	text.setAttribute("id", "contest_paragraph");
-	text.innerHTML = "La foto con más  	&#34;likes&#34; gana una de nuestras obras literarias.<br><em>¡El ganador será anunciado a través de nuestras redes sociales!</em>.<br> <span style='color:#ED2024'>*Se sortearán dos libros cada día.</span>";
+	text.innerHTML = "La foto con más  	&#34;likes&#34; luego de 24 horas publicadas gana una de nuestras obras literarias.<br><em>¡El ganador será anunciado a través de nuestras redes sociales!</em>.<br> <span style='color:#ED2024'>*Se sortearán dos libros cada día.</span>";
 
 	pasos.appendChild(paso1);
 	pasos.appendChild(paso2);
