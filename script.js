@@ -36,6 +36,9 @@ var generateHeader = function() {
 	return header;
 };
 
+// ==================================================================
+// Generates text element concerning the contest.
+// ==================================================================
 var generateContest = function() {
 	var container = document.createElement("div");
 	container.setAttribute("class", "contest");
@@ -266,6 +269,9 @@ var dataURItoBlob = function(dataURI) {
 	});
 }
 
+// ==================================================================
+// Generates a random series of number simulatin an UUID
+// ==================================================================
 var guid = function() {
 	function s4() {
 		return Math.floor((1 + Math.random()) * 0x10000)
@@ -310,6 +316,9 @@ var shareImage = function() {
 	// postImageToFacebook(path);
 };
 
+// ==================================================================
+// Loads the uploaded image using the LoadImage library
+// ==================================================================
 var imageLoader = function(imageFile) {
 	var options;
 	if (document.documentElement.clientWidth < 991) {
@@ -566,6 +575,9 @@ var initCanvas = function() {
 	// console.log(imageURL);
 };
 
+// ==================================================================
+// Handles the elements droped on the drop zone.
+// ==================================================================
 var dropHandler = function(ev) {
 	console.log('File(s) dropped');
 
@@ -596,7 +608,9 @@ var dropHandler = function(ev) {
 	removeDragData(ev)
 };
 
-
+// ==================================================================
+// Handles the drag over event on the drop zone.
+// ==================================================================
 var dragOverHandler = function(ev) {
 	console.log('File(s) in drop zone');
 
