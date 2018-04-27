@@ -1,3 +1,4 @@
 *.png
 !images/*
 !images/marcos/*
+!icons/*
